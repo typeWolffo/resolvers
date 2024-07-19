@@ -3,6 +3,12 @@ import { TypeCheck } from '@sinclair/typebox/compiler';
 import { Value, type ValueError } from '@sinclair/typebox/value';
 import { FieldError, FieldErrors, appendErrors } from 'react-hook-form';
 import type { Resolver } from './types';
+import { FormatRegistry } from "@sinclair/typebox";
+
+FormatRegistry.Set("email", (value) => {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(value);
+});
 
 const parseErrorSchema = (
   _errors: ValueError[],
